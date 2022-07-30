@@ -3,6 +3,15 @@ from collections import Counter
 
 
 def _calculate_dice_coefficient(string1: str, string2: str) -> float:
+    """Calculates the Dice Coefficient of 2 strings
+
+    Args:
+        string1 (str): String argument 1
+        string2 (str): String argument 2
+
+    Returns:
+        float: the dice coefficient of `string1` and `string2`
+    """
     counter1 = Counter(string1)
     counter2 = Counter(string2)
 
@@ -14,6 +23,15 @@ def _calculate_dice_coefficient(string1: str, string2: str) -> float:
 
 
 def _calculate_levenshtein_distance(string1: str, string2: str) -> int:
+    """Calculates the levenshtein distance between 2 strings
+
+    Args:
+        string1 (str): String argument 1
+        string2 (str): String argument 2
+
+    Returns:
+        int: levenshtein distance between `string1` and `string2`
+    """
     len1 = len(string1)
     len2 = len(string2)
 
@@ -53,6 +71,18 @@ def calculate_string_similarity(
     string1: str,
     string2: str,
 ) -> StringSimilarityResult:
+    """Returns a value between 0 and 1 to denote how similar 2 strings are.
+    1 being exactly equal and 0 being not similar at all.
+
+    Args:
+        string1 (str): String argument 1
+        string2 (str): String argument 2
+
+    Returns:
+        StringSimilarityResult: An object which contains the string similarity of `string1`
+        and `string2` calculated using various methods.
+    """
+
     result = StringSimilarityResult()
     levenshtein_distance = _calculate_levenshtein_distance(string1, string2)
     max_len = max(len(string1), len(string2))
