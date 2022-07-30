@@ -1,6 +1,6 @@
 import pytest
 
-from string_similarity import calculate_string_similarity
+from string_similarity_lakshay_angrish import string_similarity
 
 
 @pytest.mark.parametrize(
@@ -23,7 +23,7 @@ def test_calculate_levenshtein_similarity(
     string1: str, string2: str, levenshtein_similarity: int
 ) -> None:
     assert (
-        calculate_string_similarity(string1, string2).levenshtein
+        string_similarity.calculate_string_similarity(string1, string2).levenshtein
         == levenshtein_similarity
     )
 
@@ -47,4 +47,7 @@ def test_calculate_levenshtein_similarity(
 def test_calculate_dice_similarity(
     string1: str, string2: str, dice_similarity: float
 ) -> None:
-    assert calculate_string_similarity(string1, string2).dice == dice_similarity
+    assert (
+        string_similarity.calculate_string_similarity(string1, string2).dice
+        == dice_similarity
+    )
