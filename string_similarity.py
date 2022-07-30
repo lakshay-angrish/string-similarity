@@ -1,4 +1,4 @@
-from enum import Enum
+from dataclasses import dataclass
 from collections import Counter
 
 
@@ -43,25 +43,24 @@ def _calculate_levenshtein_distance(string1: str, string2: str) -> int:
     return table[i][j]
 
 
-class SimilarityCalculationMethod(Enum):
-    LEVENSHTEIN_DISTANCE = 0
-    DICE_COEFFICIENT = 1
+@dataclass
+class StringSimilarityResult:
+    levenshtein: float = 0.0
+    dice: float = 0.0
 
 
 def calculate_string_similarity(
     string1: str,
     string2: str,
-    method: SimilarityCalculationMethod = SimilarityCalculationMethod.LEVENSHTEIN_DISTANCE,
-) -> float:
-    if method == SimilarityCalculationMethod.LEVENSHTEIN_DISTANCE:
-        levenshtein_distance = _calculate_levenshtein_distance(string1, string2)
-        max_len = max(len(string1), len(string2))
-        if max_len == 0:
-            return 0
-        return 1 - levenshtein_distance / max_len
-
-    elif method == SimilarityCalculationMethod.DICE_COEFFICIENT:
-        return _calculate_dice_coefficient(string1, string2)
-
+) -> StringSimilarityResult:
+    result = StringSimilarityResult()
+    levenshtein_distance = _calculate_levenshtein_distance(string1, string2)
+    max_len = max(len(string1), len(string2))
+    if max_len == 0:
+        result.levenshtein = 0.0
     else:
-        raise ValueError(f"Invalid method")
+        result.levenshtein = 1 - levenshtein_distance / max_len
+
+    result.dice = _calculate_dice_coefficient(string1, string2)
+
+    return result

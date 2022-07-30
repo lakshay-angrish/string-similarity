@@ -1,10 +1,10 @@
 import pytest
 
-from string_similarity import calculate_string_similarity, SimilarityCalculationMethod
+from string_similarity import calculate_string_similarity
 
 
 @pytest.mark.parametrize(
-    "string1, string2, levenshtein_distance",
+    "string1, string2, levenshtein_similarity",
     [
         ("kitten", "sitting", 1 - 3 / 7),
         ("equal", "equal", 1),
@@ -19,19 +19,17 @@ from string_similarity import calculate_string_similarity, SimilarityCalculation
         ),
     ],
 )
-def test_calculate_levenshtein_distance(
-    string1: str, string2: str, levenshtein_distance: int
+def test_calculate_levenshtein_similarity(
+    string1: str, string2: str, levenshtein_similarity: int
 ) -> None:
     assert (
-        calculate_string_similarity(
-            string1, string2, SimilarityCalculationMethod.LEVENSHTEIN_DISTANCE
-        )
-        == levenshtein_distance
+        calculate_string_similarity(string1, string2).levenshtein
+        == levenshtein_similarity
     )
 
 
 @pytest.mark.parametrize(
-    "string1, string2, dice_coefficient",
+    "string1, string2, dice_similarity",
     [
         ("kitten", "sitting", (2 * 4) / 13),
         ("equal", "equal", (2 * 5) / 10),
@@ -46,12 +44,7 @@ def test_calculate_levenshtein_distance(
         ),
     ],
 )
-def test_calculate_dice_coefficient(
-    string1: str, string2: str, dice_coefficient: float
+def test_calculate_dice_similarity(
+    string1: str, string2: str, dice_similarity: float
 ) -> None:
-    assert (
-        calculate_string_similarity(
-            string1, string2, SimilarityCalculationMethod.DICE_COEFFICIENT
-        )
-        == dice_coefficient
-    )
+    assert calculate_string_similarity(string1, string2).dice == dice_similarity
