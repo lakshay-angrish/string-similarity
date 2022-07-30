@@ -20,7 +20,7 @@ pip install -i https://test.pypi.org/simple/ string-similarity-lakshay-angrish==
 >>> string_similarity.calculate_string_similarity('testing', 'bathing')
 StringSimilarityResult(levenshtein=0.4285714285714286, dice=0.5714285714285714)
 >>> result = string_similarity.calculate_string_similarity('incomprehensibility', 'comprehension')
->>> result.dice     # get the similarity based on dice coefficient
+>>> result.dice         # get the similarity based on dice coefficient
 0.75
 >>> result.levenshtein  # get the similarity based on levenshtein distance
 0.5789473684210527
@@ -36,8 +36,5 @@ StringSimilarityResult(levenshtein=0.4285714285714286, dice=0.5714285714285714)
 
  ```bash
  pip install pytest
- ```
-
- ```bash
-pytest tests/
+ pytest tests/
  ```
